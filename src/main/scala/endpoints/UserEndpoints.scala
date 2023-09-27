@@ -10,10 +10,11 @@ import org.http4s.circe.CirceEntityDecoder._
 import utils.SparkManager
 import org.apache.spark.sql.{DataFrame, Row}
 import org.apache.spark.sql.types.{StructType, StructField, StringType}
+import utils.OpenAiClient
 
 object UserEndpoints {
 
-  case class UserRegistration(name: String, age: Int)
+  case class UserRegistration(name: String, age: String)
   case class UserInfo(id: Long, name: String, age: Int)
 
   val userRoutes = HttpRoutes.of[IO] {
@@ -31,8 +32,11 @@ object UserEndpoints {
 
       Ok(s"Hello, $name!")
 
-    case GET -> Root / "user" / LongVar(userId) =>
-      Ok(UserInfo(userId, "John", 25))
+    case GET -> Root / "user" / userId =>
+      val client = new OpenAiClient()
+      client.run("Show the oldest person in my table").flatMap { response =>
+        Ok(UserRegistration("Show the oldest person in my table", response))
+      }
 
     case req @ POST -> Root / "register" =>
       req.decode[UserRegistration] { userData =>

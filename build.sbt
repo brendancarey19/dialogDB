@@ -20,4 +20,8 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % "3.2.0",
   "org.apache.spark" %% "spark-sql" % "3.2.0",
   "org.scalatest" %% "scalatest" % "3.2.10" % Test,
+  "io.cequence" %% "openai-scala-client" % "0.4.1",
+  "com.typesafe.akka" %% "akka-actor" % "2.6.17",
+  "com.typesafe.akka" %% "akka-stream" % "2.6.17",
+  "org.scalaj" %% "scalaj-http" % "2.4.2"
 )
