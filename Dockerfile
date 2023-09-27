@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the dependencies file to the working directory
 COPY project /app/project
 COPY build.sbt /app/
-COPY data /app/
+COPY data /app/data
 
 # Load the project dependencies
 RUN sbt update
