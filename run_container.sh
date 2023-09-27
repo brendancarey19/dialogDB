@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 container_uuid=$(uuidgen | cut -c 1-8)
 
 docker build -t dialogdb .
