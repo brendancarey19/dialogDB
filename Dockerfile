@@ -19,4 +19,5 @@ COPY src /app/src
 RUN sbt compile
 
 # Command to run on container start
-CMD [ "bash" ]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
+CMD ["sbt", "run"]

@@ -1,4 +1,4 @@
-package com.dialogdb
+package server
 
 import cats.effect.{ExitCode, IO, IOApp}
 import org.http4s._
@@ -10,6 +10,9 @@ import org.http4s.circe._
 import org.http4s.circe.CirceEntityEncoder._
 import org.http4s.circe.CirceEntityDecoder._
 import cats.implicits._
+import utils.SparkManager
+import org.apache.spark.sql.{DataFrame, SparkSession, Row}
+import org.apache.spark.sql.types.{StructType, StructField, StringType}
 
 object Server extends IOApp {
 
@@ -18,6 +21,17 @@ object Server extends IOApp {
 
   val userRoutes = HttpRoutes.of[IO] {
     case GET -> Root / "hello" / name =>
+      val spark = SparkManager.spark
+
+      // Create a DataFrame with a single column named "name"
+      val schema = StructType(Seq(StructField("name", StringType)))
+      val data = Seq(Row(name))
+      val nameDataFrame: DataFrame = spark.createDataFrame(spark.sparkContext.parallelize(data), schema)
+
+      // Print the schema and show the DataFrame
+      nameDataFrame.printSchema()
+      nameDataFrame.show()
+
       Ok(s"Hello, $name!")
 
     case GET -> Root / "user" / LongVar(userId) =>
