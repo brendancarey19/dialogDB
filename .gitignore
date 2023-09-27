@@ -1,5 +1,61 @@
-*.class
-*.log
+# Compiled bytecode
+target/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# BSPs
+**/*.bsp
+
+# Generated project files
+.project
+.classpath
+.settings/
+cache/
+.project
+.idea/
+
+# Logs and other generated files
+logs/
+*.log
+*.log.*
+*.tmp
+*.swp
+
+# Environment-specific files
+.env
+.env.*
+.env.local
+.envrc
+*.yml
+*.yaml
+*.conf
+
+# SBT-specific files
+project/target/
+project/project/
+project/build.properties
+
+# Dependency lock files
+ivy.lock
+*.jars.ivy
+*.sbt.ivy.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled Java classes
+*.class
+
+# User-specific files
+.idea/
+.idea_modules/
+
+# sbt native packager
+target/universal/stage/
+
+# Bloop IDE files
+.bloop/
+
+# Metals IDE files
+.metals/
+.metals.sbt
+.metals.bsp
