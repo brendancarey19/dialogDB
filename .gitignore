@@ -4,6 +4,8 @@ target/
 # BSPs
 **/*.bsp
 
+.vscode
+
 # Generated project files
 .project
 .classpath

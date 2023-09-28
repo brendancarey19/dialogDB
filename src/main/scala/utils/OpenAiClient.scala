@@ -9,14 +9,18 @@ import models.Messages.{Message, Choice, Usage, Response, prepareMessages, store
 
 class OpenAiClient {
 
-    def run(file: String, query: String): IO[String] = IO {
-        val f = file.dropRight(4)
+    def run(file: String, query: String, schema: String, failure_rerun: Boolean = false): IO[String] = IO {
+        val f = file
 
-        initMessages(f)
+        initMessages(f, schema)
 
         val prompt_msg = retrieveMessages(f)
 
-        prompt_msg += createPrompt(query)
+        if (failure_rerun) {
+            prompt_msg += createErrorPrompt()
+        } else {
+            prompt_msg += createPrompt(query)
+        }
 
         storeMessages(prompt_msg, f)
 
@@ -40,6 +44,11 @@ class OpenAiClient {
     def createPrompt(prompt: String): Message = {
         val full_prompt = s"""Respond with nothing but a Spark SQL query for the previously specified table, corresponding to this statement: $prompt"""
         new Message(role = "user", content=full_prompt)
+    }
+
+    def createErrorPrompt(): Message = {
+        val error_prompt = s"""The Spark SQL statement you responded to the last prompt was invalid. Please try again, responding with nothing other than a Spark SQL statement."""
+        new Message(role = "user", content=error_prompt)
     }
 
 

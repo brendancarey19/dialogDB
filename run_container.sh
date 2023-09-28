@@ -7,7 +7,7 @@ docker run -d -p 8080:8080 --name "dialog_container_$container_uuid" dialogdb
 
 sleep 5
 
-open http://localhost:8080
+# open http://localhost:8080
 
 echo "dialog_container_$container_uuid"
 

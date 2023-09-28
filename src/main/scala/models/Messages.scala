@@ -22,17 +22,16 @@ object Messages {
         Json.toJson(messages).toString()
     }
 
-    def initMessages(file: String): Unit = {
+    def initMessages(file: String, schema: String): Unit = {
         val dirPath = s"./data/$file"
         val directory = Paths.get(dirPath)
         if (!Files.exists(directory)) {
-            print("hello the dir doesn't exist")
             Files.createDirectories(directory)
             val messages = ListBuffer[Message]()
 
             val sys_message = new Message(role = "system", content="You are a helpful assistant who only responds with Spark SQL compliant queries.")
             val user_instr = new Message(role = "user", content="You are a helpful assistant who only responds with Spark SQL compliant queries. When the user asks to show them something in their table, respond with nothing but a Spark SQL query.")
-            val schema_instr = new Message(role = "user", content="The schema of my Spark SQL table (table name = test_table) is as follows: name(str), age(int)")
+            val schema_instr = new Message(role = "user", content=s"The schema of my Spark SQL table (table name = $file) is as follows: $schema")
 
             messages ++= Seq(sys_message, user_instr, schema_instr)
 
