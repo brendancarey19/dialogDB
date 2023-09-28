@@ -32,12 +32,6 @@ object UserEndpoints {
 
       Ok(s"Hello, $name!")
 
-    case GET -> Root / "user" / userId =>
-      val client = new OpenAiClient()
-      client.run("Show the oldest person in my table").flatMap { response =>
-        Ok(UserRegistration("Show the oldest person in my table", response))
-      }
-
     case req @ POST -> Root / "register" =>
       req.decode[UserRegistration] { userData =>
         Ok(s"Registered user ${userData.name} with age ${userData.age}")
