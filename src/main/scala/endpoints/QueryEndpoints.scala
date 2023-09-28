@@ -38,12 +38,3 @@ object QueryEndpoints {
       }
   } 
 }
-
-    // case req @ POST -> Root / "data" =>
-    //   req.decode[Query] { queryData =>
-    //     val client = new OpenAiClient
-    //     client.run(queryData.file, queryData.query).flatMap { resultString =>
-    //       println(resultString)
-    //       Ok(resultString)
-    //     }
-    //   }

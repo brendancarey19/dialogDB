@@ -16,9 +16,6 @@ object DataManager {
         val f = file.dropRight(4)
 
         val dataSchema = get_schema(f)
-        println(s"file before: $file")
-
-        println(s"file after: $f")
 
         fetchData(f, query, dataSchema)
     }

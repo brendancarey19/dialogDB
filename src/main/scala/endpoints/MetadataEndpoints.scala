@@ -42,9 +42,6 @@ object MetadataEndpoints {
     val baseCSV = rawList.map(path => path.split("/").last.dropRight(4))
     val baseParquet = parquetList.map(path => path.split("/").last)
 
-    println(baseCSV)
-    println(baseParquet)
-
     val intersection = baseCSV.intersect(baseParquet)
     intersection.map(_ + ".csv")
   }

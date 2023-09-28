@@ -12,15 +12,12 @@ object SQLConnector {
         val dataframe = get_dataframe(file)
         println("DF")
         dataframe.show()
-        println(s"here is view name $file")
         if (!spark.catalog.tableExists(file)) {
             dataframe.createOrReplaceTempView(file)
         }
 
         val x = spark.sql(query)
         x.show()
-        println("BRENDAN")
-        println(s"$query")
         x
     }
 
